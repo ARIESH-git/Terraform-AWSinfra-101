@@ -5,9 +5,3 @@ provider "aws" {
     tags = var.tags
   }
 }
-resource "aws_s3_bucket" "example" {
-bucket = "terraform-101-bucket-backend"
-tags = {
-  Name        = "My Terraform Bucket"
-}
-}
