@@ -41,31 +41,34 @@ module "instances" {
   depends_on = [module.security_group]
 }
 
-module "alb" {
-  source = "./modules/alb"
-
-  alb_name                        = var.alb_name
-  vpc_id                          = module.vpc.vpc_id
-  public_subnet_ids               = module.vpc.public_subnets
-  enable_deletion_protection      = var.enable_alb_deletion_protection
-  target_group_name               = var.target_group_name
-  jenkins_target_group_name       = var.jenkins_target_group_name
-  target_port                     = 80
-  target_protocol                 = "HTTP"
-  target_type                     = "instance"
-  health_check_healthy_threshold  = 2
-  health_check_unhealthy_threshold = 2
-  health_check_timeout            = 5
-  health_check_interval           = 30
-  health_check_path               = "/"
-  health_check_matcher            = "200"
-  listener_port                   = 80
-  listener_protocol               = "HTTP"
-  target_instance_ids             = [module.instances.app_server_instance_id]
-  jenkins_instance_ids            = [module.instances.jenkins_instance_id]
-  jenkins_security_group_id       = module.security_group.private_sg_id
-
-  tags = var.tags
-
-  depends_on = [module.instances]
-}
+# ALB module disabled - AWS account does not support creating load balancers
+# Uncomment and reapply after requesting ALB quota increase from AWS Support
+# 
+# module "alb" {
+#   source = "./modules/alb"
+#
+#   alb_name                        = var.alb_name
+#   vpc_id                          = module.vpc.vpc_id
+#   public_subnet_ids               = module.vpc.public_subnets
+#   enable_deletion_protection      = var.enable_alb_deletion_protection
+#   target_group_name               = var.target_group_name
+#   jenkins_target_group_name       = var.jenkins_target_group_name
+#   target_port                     = 80
+#   target_protocol                 = "HTTP"
+#   target_type                     = "instance"
+#   health_check_healthy_threshold  = 2
+#   health_check_unhealthy_threshold = 2
+#   health_check_timeout            = 5
+#   health_check_interval           = 30
+#   health_check_path               = "/"
+#   health_check_matcher            = "200"
+#   listener_port                   = 80
+#   listener_protocol               = "HTTP"
+#   target_instance_ids             = [module.instances.app_server_instance_id]
+#   jenkins_instance_ids            = [module.instances.jenkins_instance_id]
+#   jenkins_security_group_id       = module.security_group.private_sg_id
+#
+#   tags = var.tags
+#
+#   depends_on = [module.instances]
+# }
