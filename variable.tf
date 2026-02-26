@@ -91,12 +91,10 @@ variable "enable_alb_deletion_protection" {
   default     = false
 }
 
-# Common Tags
 variable "tags" {
   description = "Common tags to apply to all resources"
   type        = map(string)
   default = {
     Terraform   = "true"
-    Environment = "dev"
   }
 }
