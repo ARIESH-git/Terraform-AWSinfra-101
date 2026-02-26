@@ -5,3 +5,10 @@ provider "aws" {
     tags = var.tags
   }
 }
+terraform {
+  backend "s3" {
+    bucket = "terraform-101-bucket-backend"
+    key    = "terraform.tfstate"
+    region = "us-east-1"
+  }
+}
