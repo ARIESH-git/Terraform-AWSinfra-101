@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 5.8"
+  version = "~> 5.0"
 
   name = var.vpc_name
   cidr = var.vpc_cidr
@@ -41,9 +41,6 @@ module "instances" {
   depends_on = [module.security_group]
 }
 
-# Temporarily disabled due to lab account restrictions
-# Uncomment when ALB support is enabled
-/*
 module "alb" {
   source = "./modules/alb"
 
@@ -72,4 +69,3 @@ module "alb" {
 
   depends_on = [module.instances]
 }
-*/
